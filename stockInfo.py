@@ -40,11 +40,9 @@ for i in range(10, 0, -1):
     getStockInfo(dTime)
 
 
-
-# print(resultList)
-
 frontData = pd.DataFrame(resultList, columns=['날짜', '종목명', '등락률'])
+frontData.set_index('날짜', inplace=True)
 
-# print(frontData)
-
+st.markdown("<h1 style='text-align: center; color: red;'>최근 상한가</h1>", unsafe_allow_html=True)
 st.table(frontData)
+
