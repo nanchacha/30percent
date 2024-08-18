@@ -5,7 +5,7 @@ import streamlit as st
 import pandas as pd
 import json
 
-st.markdown("<h1 style='text-align: center; color: red;'>최근 상한가</h1>", unsafe_allow_html=True)
+
 
 resultList = []
 
@@ -45,8 +45,10 @@ def getCreditStatus():
         # crdTrFingWhl 값 추출
         crdTrFingWhl_value = data['response']['body']['items']['item'][0]['crdTrFingWhl']
         print("crdTrFingWhl:", crdTrFingWhl_value)
+        result = crdTrFingWhl_value[0:3]
+        print("result : ", result)
 
-        return str(crdTrFingWhl_value)
+        return result
 
 now = datetime.now()
 today = now.date()
@@ -72,11 +74,18 @@ with col1:
 
     # frontData = pd.DataFrame(resultList, columns=['날짜', '종목명', '등락률'])
     # frontData.set_index('날짜', inplace=True)
-
+    st.markdown("<h1 style='text-align: center; color: red;'>최근 상한가</h1>", unsafe_allow_html=True)
     st.table(frontData)
 
 with col2:
-    st.write("{}".format(getCreditStatus()))
+    st.markdown("<h1 style='text-align: center; color: blue;'>신용잔고</h1>", unsafe_allow_html=True)
+    result = getCreditStatus()
+    jo = result[0:2]
+    print(jo)
+    uk = result[-1]
+    print(uk)    
+    # st.write("{}".format(getCreditStatus()))
+    st.write(jo+"조", uk+"억")
 
 
 
